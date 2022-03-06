@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class GameOverHandler : NetworkBehaviour
 {
+
+    public static event Action ServerOnGameOver;
     public static event Action<string> ClientOnGameOver;
     
     private List<UnitBase> bases = new List<UnitBase>();
@@ -42,6 +44,8 @@ public class GameOverHandler : NetworkBehaviour
         int playerId = bases[0].connectionToClient.connectionId;
         
         RpcGameOver($"Player {playerId}");
+        
+        ServerOnGameOver?.Invoke();
     }
 
     #endregion
