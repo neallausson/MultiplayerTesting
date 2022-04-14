@@ -15,6 +15,13 @@ public class RTSNetworkingManager : NetworkManager
     {
         base.OnServerAddPlayer(conn);
 
+        StartCoroutine(DelaySpawnUnitbase(conn));
+    }
+
+    private IEnumerator DelaySpawnUnitbase(NetworkConnection conn)
+    {
+        yield return new WaitForSeconds(0.1f);
+
         GameObject unitSpawnerInstance = Instantiate(
             unitSpawnerPrefab,
             conn.identity.transform.position,

@@ -44,8 +44,8 @@ GameObject:
   - component: {fileID: 8368336218584392847}
   - component: {fileID: 6253918997896930810}
   - component: {fileID: 5015062843238365045}
-  - component: {fileID: 4910505246992267914}
   - component: {fileID: 429255574623788152}
+  - component: {fileID: 4910505246992267914}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -145,23 +145,6 @@ MonoBehaviour:
   health: {fileID: 6253918997896930810}
   healthBarParent: {fileID: 5232916275678047490}
   healthBarImage: {fileID: 5232916276729659137}
---- !u!114 &4910505246992267914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8133941179329498348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9efc417eabc2cd246b184d99a1de9b03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  icon: {fileID: 0}
-  id: -1
-  price: 100
 --- !u!114 &429255574623788152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +160,24 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   aimAtPoint: {fileID: 5101351718133255585}
+--- !u!114 &4910505246992267914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8133941179329498348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9efc417eabc2cd246b184d99a1de9b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  buildingPreview: {fileID: 0}
+  icon: {fileID: 0}
+  id: -1
+  price: 100
 --- !u!1001 &8882213544059225206
 PrefabInstance:
   m_ObjectHideFlags: 0

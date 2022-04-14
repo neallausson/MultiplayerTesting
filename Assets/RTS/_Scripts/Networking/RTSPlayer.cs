@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class RTSPlayer : NetworkBehaviour
 {
+    [SerializeField] private LayerMask buildingBlockLayer = new LayerMask();
     [SerializeField] private Building[] buildings = new Building[0];
+    [SerializeField] private float buildingRangeLimit = 5f;
 
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))]
     private int resources = 500;
@@ -14,7 +16,7 @@ public class RTSPlayer : NetworkBehaviour
     public event Action<int> ClientOnResourcesUpdated;
 
     private List<Unit> myUnits = new List<Unit>();
-    private List<Building> myBuildings = new List<Building>();
+    public List<Building> myBuildings = new List<Building>();
 
     public int GetResources()
     {
@@ -36,13 +38,36 @@ public class RTSPlayer : NetworkBehaviour
     {
         resources = newResources;
     }
+
+    public bool CanPlaceBuilding(BoxCollider buildingCollider, Vector3 point)
+    {
+        if (Physics.CheckBox(
+            point + buildingCollider.center,
+            buildingCollider.size / 2,
+            Quaternion.identity,
+            buildingBlockLayer))
+        {
+            return false;
+        }
+        
+        foreach (Building building in myBuildings)
+        {
+            if ((point - building.transform.position).sqrMagnitude 
+                <= buildingRangeLimit * buildingRangeLimit)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
     
     #region Server
 
     public override void OnStartAuthority()
     {
-        if (NetworkServer.active) { return; }
-        
+        //if (NetworkServer.active) { return; }
+        Debug.Log("Add fct to event");
         Unit.ServerOnUnitSpawned += ServerHandleUnitSpawned;
         Unit.ServerOnUnitDespawned += ServerHandleUnitDespawned;
         Building.ServerOnBuildingSpawned += ServerHandleBuildingSpawned;
@@ -75,10 +100,20 @@ public class RTSPlayer : NetworkBehaviour
 
         if (buildingToPlace == null) { return; }
 
+        if (resources < buildingToPlace.GetPrice()) { return; }
+
+        BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();
+
+        
+
+        if (!CanPlaceBuilding(buildingCollider,point)) { return; }
+
         GameObject buildingInstance =
             Instantiate(buildingToPlace.gameObject, point, buildingToPlace.transform.rotation);
         
         NetworkServer.Spawn(buildingInstance,connectionToClient);
+        
+        SetResources(resources - buildingToPlace.GetPrice());
     }
 
     private void ServerHandleUnitSpawned(Unit unit)
@@ -98,7 +133,7 @@ public class RTSPlayer : NetworkBehaviour
     private void ServerHandleBuildingSpawned(Building building)
     {
         if (building.connectionToClient.connectionId != connectionToClient.connectionId) { return; }
-        
+        Debug.Log("fct call");
         myBuildings.Add(building);
     }
     

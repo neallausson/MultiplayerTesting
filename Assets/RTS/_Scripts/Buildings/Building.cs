@@ -41,6 +41,7 @@ public class Building : NetworkBehaviour
 
     public override void OnStartServer()
     {
+        Debug.Log("Event invoke");
         ServerOnBuildingSpawned?.Invoke(this);
     }
 
