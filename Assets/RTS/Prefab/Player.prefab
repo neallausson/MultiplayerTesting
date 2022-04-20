@@ -175,12 +175,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  cameraTransform: {fileID: 6253793926074900058}
   buildingBlockLayer:
     serializedVersion: 2
     m_Bits: 1281
   buildings:
-  - {fileID: 7199859515495454930, guid: 1bd5970262ed568418fca98fe7dd0efe, type: 3}
+  - {fileID: 6087141566414218885, guid: 2cc914d6746c29646b10d9103604919d, type: 3}
   - {fileID: 7199859515495454930, guid: ad462cf0d0f184c4190861a3d4e84a1f, type: 3}
+  - {fileID: 5274150905188031977, guid: e43164485c43b7a4989e771ea3fb5632, type: 3}
   buildingRangeLimit: 5
   teamColor: {r: 0, g: 0, b: 0, a: 0}
   myUnits: []
@@ -201,6 +203,6 @@ MonoBehaviour:
   syncInterval: 0.1
   playerCameraTransform: {fileID: 6253793926074900058}
   speed: 20
-  screenBorderThickness: 50
-  screenXLimits: {x: -30, y: 30}
-  screenZLimits: {x: -45, y: 30}
+  screenBorderThickness: 10
+  screenXLimits: {x: -50, y: 50}
+  screenZLimits: {x: -50, y: 50}
