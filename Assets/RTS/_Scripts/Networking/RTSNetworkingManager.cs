@@ -14,6 +14,14 @@ public class RTSNetworkingManager : NetworkManager
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         base.OnServerAddPlayer(conn);
+        
+        RTSPlayer player = conn.identity.GetComponent<RTSPlayer>();
+        
+        player.SetTeamColor(new Color(
+            Random.Range(0f,1f),
+            Random.Range(0f,1f),
+            Random.Range(0f,1f)
+        ));
 
         StartCoroutine(DelaySpawnUnitbase(conn));
     }
@@ -21,7 +29,7 @@ public class RTSNetworkingManager : NetworkManager
     private IEnumerator DelaySpawnUnitbase(NetworkConnection conn)
     {
         yield return new WaitForSeconds(0.1f);
-
+        
         GameObject unitSpawnerInstance = Instantiate(
             unitSpawnerPrefab,
             conn.identity.transform.position,
