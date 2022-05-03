@@ -1,13 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class RTSNetworkingManager : NetworkManager
 {
     [SerializeField] private GameObject unitSpawnerPrefab = null;
     [SerializeField] private GameOverHandler gameOverHandlerPrefab = null;
+
+    public static event Action ClientOnConnected;
+    public static event Action ClientOnDisconnected;
+
+    public override void OnClientConnect(NetworkConnection conn)
+    {
+        base.OnClientConnect(conn);
+        
+        ClientOnConnected?.Invoke();
+    }
+
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+        
+        ClientOnDisconnected?.Invoke();
+    }
 
     #region Server
 
